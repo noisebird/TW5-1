@@ -19,7 +19,6 @@ public class SecurityTest {
 
     private Security security;
     private SecurityChecker checker;
-
     @Before
     public void setUp() throws Exception {
         checker = mock(SecurityChecker.class);

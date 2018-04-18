@@ -9,31 +9,37 @@ public class Order {
     private List<BigDecimal> discounts;
     private BigDecimal tax;
 
+    public Order() {
+    }
     public Order(List<OrderLineItem> orderLineItemList, List<BigDecimal> discounts) {
         this.orderLineItemList = orderLineItemList;
         this.discounts = discounts;
         this.tax = new BigDecimal(0.1);
     }
+    public List<OrderLineItem> getOrderLineItemList() {
+        return orderLineItemList;
+    }
 
-    public BigDecimal calculate() {
-        BigDecimal subTotal = new BigDecimal(0);
+    public void setOrderLineItemList(List<OrderLineItem> orderLineItemList) {
+        this.orderLineItemList = orderLineItemList;
+    }
 
-        // Total up line items
-        for (OrderLineItem lineItem : orderLineItemList) {
-            subTotal = subTotal.add(lineItem.getPrice());
-        }
+    public List<BigDecimal> getDiscounts() {
+        return discounts;
+    }
 
-        // Subtract discounts
-        for (BigDecimal discount : discounts) {
-            subTotal = subTotal.subtract(discount);
-        }
+    public void setDiscounts(List<BigDecimal> discounts) {
+        this.discounts = discounts;
+    }
 
-        // calculate tax
-        BigDecimal tax = subTotal.multiply(this.tax);
+    public BigDecimal getTax() {
+        return tax;
+    }
 
-        // calculate GrandTotal
-        BigDecimal grandTotal = subTotal.add(tax);
-
-        return grandTotal;
+    public void setTax(BigDecimal tax) {
+        this.tax = tax;
+    }
+    public BigDecimal calculate(){
+       return new PriceCaculator().calculate(orderLineItemList,discounts,tax);
     }
 }
